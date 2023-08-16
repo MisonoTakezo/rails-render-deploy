@@ -1,0 +1,25 @@
+default: &default
+  adapter: mysql2
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+  charset: utf8mb4
+  encoding: utf8mb4
+  collation: utf8mb4_general_ci
+
+development:
+  <<: *default
+  database: blog
+  username: <%= ENV['DB_USERNAME_DEV'] %>
+  host: <%= ENV['DB_HOST_DEV'] %>
+  password: <%= ENV['DB_PASSWORD_DEV'] %>
+  ssl_mode: verify_identity
+  sslca: "/etc/ssl/cert.pem"
+
+production:
+  <<: *default
+  database: blog
+  username: <%= ENV['DB_USERNAME_PROD'] %>
+  host: <%= ENV['DB_HOST_PROD'] %>
+  password: <%= ENV['DB_PASSWORD_PROD'] %>
+  ssl_mode: verify_identity
+  sslca: "/etc/ssl/certs/ca-certificates.crt"
